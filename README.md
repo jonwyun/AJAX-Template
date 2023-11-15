@@ -2,9 +2,9 @@
 Using the provided API which will output information about the earbuds as JSON, I will use the Fetch API to retrieve the data on page load and update the view as the user interacts with the hotspots.
 
 Tasks
-> Connect & pull data from API
-> Output JSON data & use template element
-> Implement Loading Spinner and error response for user
+* Connect & pull data from API
+2. Output JSON data & use template element
+3. Implement Loading Spinner and error response for user
 
 
 ## Installation
