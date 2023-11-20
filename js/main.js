@@ -3,8 +3,6 @@
     //variables
     const model = document.querySelector("#model");
     const hotspots = document.querySelectorAll(".Hotspot");
-
-    // const spinnerWheel = document.querySelector("#material-list")
   
     const materialList = document.querySelector("#material-list");
     const materialTemplate = document.querySelector("#material-template");
@@ -120,17 +118,14 @@
       .then(materialListData => {
         materialList.innerHTML ="";
         materialListData.forEach(material => {
-          // make a copy of the template
           const clone = materialTemplate.content.cloneNode(true);
-    
-          // fill the template
+
           const materialHeading = clone.querySelector(".material-heading");
           materialHeading.textContent = material.heading;
     
           const materialDescription = clone.querySelector(".material-description");
           materialDescription.textContent = material.description;
     
-          // append the populated template to the ul
           materialList.appendChild(clone); 
         });
       })
