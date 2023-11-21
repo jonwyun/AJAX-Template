@@ -3,6 +3,7 @@
     //variables
     const model = document.querySelector("#model");
     const hotspots = document.querySelectorAll(".Hotspot");
+    const hotspotAnnotation = document.querySelectorAll(".HotspotAnnotation");
   
     const materialList = document.querySelector("#material-list");
     const materialTemplate = document.querySelector("#material-template");
@@ -85,10 +86,16 @@
     }
   
     function loadInfoBoxes() {
-      hotspots.innerHTML = spinner;
+      hotspotAnnotation.forEach(anno => {
+        anno.innerHTML = spinner;
+      });
       fetch("https://swiftpixel.com/earbud/api/infoboxes")
       .then(response => response.json())
       .then(infoboxes => {
+        hotspotAnnotation.forEach(anno => {
+          anno.innerHTML = "";
+        });
+
         hotspots.innerHTML = "";
         infoboxes.forEach((infoBox, index) => {
           let selected = document.querySelector(`#hotspot-${index+1}`);
@@ -100,14 +107,19 @@
           descriptionElement.textContent = infoBox.description;
 
           const img = document.createElement("img");
-          img.src = infoBox.thumbnail;
+          img.src = `/images/earbud${index + 1}.jpg`;
     
           selected.appendChild(headingElement);
           selected.appendChild(descriptionElement);
           selected.appendChild(img);
           });
         })
-      .catch(error => console.error(error));
+        .catch(error => {
+          hotspotAnnotation.forEach(anno => {
+            anno.innerHTML = "Data failed to load";
+          });
+          console.error(error);
+        });
     }
     loadInfoBoxes();
   
@@ -129,7 +141,10 @@
           materialList.appendChild(clone); 
         });
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        materialList.innerHTML = "Data failed to load";
+        console.error(error);
+      });
     }
     loadMaterialInfo();
   
